@@ -38,10 +38,52 @@ class Saxon extends Soldier {
         if (this.health > 0) {
             return `A Saxon has received ${damage} points of damage`;
         } else {
-            return `A Saxon has died in combat`
+            return `A Saxon has died in combat`;
         }
     }
 }
 
 // War
-class War {}
+class War {
+    constructor(){
+       this.vikingArmy = [];
+       this.saxonArmy = [];
+    }
+    addViking(Viking){
+        this.vikingArmy.push(Viking);
+    }
+    addSaxon(Saxon){
+        this.saxonArmy.push(Saxon);
+    }
+    vikingAttack(){
+        // console.log(Math.random()*5);
+        // console.log(this.saxonArmy[Math.round(Math.random()*this.saxonArmy.length * 10)]);
+        const indexOfSaxon = Math.floor(Math.random()*(this.saxonArmy.length));
+        const Saxon =  this.saxonArmy[indexOfSaxon];
+        // console.log(Saxon);
+        const indexOfViking = Math.floor(Math.random()*this.vikingArmy.length);
+        const Viking = this.vikingArmy[indexOfViking];
+        // console.log(Viking);  
+        // console.log(Viking.strength);
+        const result = Saxon.receiveDamage(Viking.strength);
+        if (Saxon.health <= 0) {
+            this.saxonArmy.splice(indexOfSaxon, 1);
+        }
+        return result;
+    }
+    saxonAttack(){
+        const indexOfSaxon = Math.floor(Math.random()*(this.saxonArmy.length));
+        const Saxon =  this.saxonArmy[indexOfSaxon];
+        // console.log(Saxon);
+        const indexOfViking = Math.floor(Math.random()*this.vikingArmy.length);
+        const Viking = this.vikingArmy[indexOfViking];
+        // console.log(Viking);  
+        // console.log(Viking.strength);
+        const result = Viking.receiveDamage(Saxon.strength);
+        if (Viking.health <= 0) {
+            this.vikingArmy.splice(indexOfViking, 1);
+        }
+        return result;
+    }
+    showStatus(){}
+}
